@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently \"cd server && npm start\" \"cd client && npm run dev\"",
     "build": "cd client && npm run build",
-    "push": "git add . && git commit -m \"update\" && git push"
+    "push": "git add . && git commit -m \"update\" && git push",
+    "install-all": "cd server && npm install && cd ../client && npm install"
   },
   "keywords": [],
   "author": "",
