@@ -1,32 +1,38 @@
 const express = require("express");
+const {
+  getAllArticles,
+  getArticleById,
+  addArticle,
+} = require("./articlesModel");
+
 const router = express.Router();
-const articlesModel = require("./articlesModel");
 
 // 获取所有文章
 router.get("/", (req, res) => {
-  const articles = articlesModel.getAllArticles();
-  res
-    .status(200)
-    .json({ code: 200, message: "成功获取所有文章", data: articles });
+  const articles = getAllArticles();
+  res.json({ code: 200, message: "成功获取所有文章", data: articles });
 });
 
-// 根据ID获取单篇文章
+// 根据 ID 获取单个文章
 router.get("/get", (req, res) => {
-  const article = articlesModel.getArticleById(parseInt(req.params.id));
+  const article = getArticleById(parseInt(req.params.id));
   if (article) {
-    res.status(200).json({ code: 200, message: "成功获取文章", data: article });
+    res.json({ code: 200, message: "成功获取文章", data: article });
   } else {
-    res.status(404).json({ code: 404, message: "文章未找到", data: null });
+    res.status(404).json({ code: 404, message: "文章未找到" });
   }
 });
 
-// 创建新文章
+// 添加新文章
 router.post("/create", (req, res) => {
   const { title, content } = req.body;
-  const newArticle = articlesModel.addArticle(title, content);
+  if (!title || !content) {
+    return res.status(400).json({ code: 400, message: "标题和内容是必需的" });
+  }
+  const newArticle = addArticle(title, content);
   res
-    .status(200)
-    .json({ code: 200, message: "文章创建成功", data: newArticle });
+    .status(201)
+    .json({ code: 201, message: "文章添加成功", data: newArticle });
 });
 
 module.exports = router;
