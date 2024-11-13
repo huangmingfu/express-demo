@@ -1,9 +1,17 @@
 {
-  "dependencies": {
-    "express": "^4.21.1"
-  },
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm run dev\"",
+    "build": "cd client && npm run build",
     "push": "git add . && git commit -m \"update\" && git push"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }
