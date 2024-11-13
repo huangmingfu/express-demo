@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 });
 
 // 根据ID获取单篇文章
-router.get("/:id", (req, res) => {
+router.get("/get", (req, res) => {
   const article = articlesModel.getArticleById(parseInt(req.params.id));
   if (article) {
     res.status(200).json({ code: 200, message: "成功获取文章", data: article });
@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
 });
 
 // 创建新文章
-router.post("/", (req, res) => {
+router.post("/create", (req, res) => {
   const { title, content } = req.body;
   const newArticle = articlesModel.addArticle(title, content);
   res
