@@ -15,11 +15,11 @@ router.get("/", (req, res) => {
 
 // 根据 ID 获取单个文章
 router.get("/get", (req, res) => {
-  const article = getArticleById(parseInt(req.params.id));
+  const article = getArticleById(parseInt(req.query.id));
   if (article) {
     res.json({ code: 200, message: "成功获取文章", data: article });
   } else {
-    res.status(404).json({ code: 404, message: "文章未找到" });
+    res.status(200).json({ code: 404, message: "文章未找到" });
   }
 });
 

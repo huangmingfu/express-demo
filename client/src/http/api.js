@@ -9,5 +9,12 @@ export function apiCreateArticle(title, content) {
 }
 
 export function apiGetArticleById(id) {
-  return http.get(`/articles/get?id=${id}`);
+  // 以下写法，express里面都是从query里面获取
+  // return http.get(`/articles/get?id=${id}`);
+  // return http.get(`/articles/get`, { params: { id } });
+  return http({
+    method: "get",
+    url: "/articles/get",
+    params: { id },
+  });
 }
