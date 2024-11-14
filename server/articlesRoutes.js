@@ -7,17 +7,22 @@ const {
 
 const router = express.Router();
 
+// 添加一个通用的成功响应函数
+function sendSuccessResponse(res, message, data) {
+  res.json({ code: 200, message: message, data: data });
+}
+
 // 获取所有文章
 router.get("/", (req, res) => {
   const articles = getAllArticles();
-  res.json({ code: 200, message: "成功获取所有文章", data: articles });
+  sendSuccessResponse(res, "成功获取所有文章", articles);
 });
 
 // 根据 ID 获取单个文章
 router.get("/get", (req, res) => {
   const article = getArticleById(parseInt(req.query.id));
   if (article) {
-    res.json({ code: 200, message: "成功获取文章", data: article });
+    sendSuccessResponse(res, "成功获取文章", article);
   } else {
     res.status(200).json({ code: 404, message: "文章未找到" });
   }
