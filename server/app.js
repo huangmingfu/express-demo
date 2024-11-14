@@ -22,7 +22,7 @@ function startServer(port) {
       if (err.code === "EADDRINUSE") {
         port = Number(port) + 1;
         console.log(`端口 ${port} 已被占用，尝试端口 ${port}`);
-        startServer(port); // 递归调用，尝试下一个端口
+        startServer(port); // 递归调用，尝试下一个端口，注：端口被换了的话，前端要修改VITE_SERVER_URL的端口号
       } else {
         console.error(err);
       }
