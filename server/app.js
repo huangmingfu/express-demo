@@ -18,10 +18,11 @@ function startServer(port) {
       console.log(`服务器在端口 ${port} 上运行`);
     })
     .on("error", (err) => {
+      // 检查端口是否被占用
       if (err.code === "EADDRINUSE") {
-        // 检查端口是否被占用
-        console.log(`端口 ${port} 已被占用，尝试端口 ${Number(port) + 1}`);
-        startServer(Number(port) + 1); // 递归调用，尝试下一个端口
+        port = Number(port) + 1;
+        console.log(`端口 ${port} 已被占用，尝试端口 ${port}`);
+        startServer(port); // 递归调用，尝试下一个端口
       } else {
         console.error(err);
       }
