@@ -42,6 +42,6 @@ const createArticle = async () => {
 };
 
 const getArticleById = async () => {
-  await apiGetArticleById(1);
+  await apiGetArticleById(2);
 };
 </script>
