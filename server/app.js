@@ -20,8 +20,8 @@ function startServer(port) {
     .on("error", (err) => {
       if (err.code === "EADDRINUSE") {
         // 检查端口是否被占用
-        console.log(`端口 ${port} 已被占用，尝试端口 ${port + 1}`);
-        startServer(++port); // 递归调用，尝试下一个端口
+        console.log(`端口 ${port} 已被占用，尝试端口 ${Number(port) + 1}`);
+        startServer(Number(port) + 1); // 递归调用，尝试下一个端口
       } else {
         console.error(err);
       }

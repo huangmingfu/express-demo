@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd server && npm start\" \"cd client && npm run dev\"",
+    "start": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
     "build": "cd client && npm run build",
     "push": "git add . && git commit -m \"update\" && git push",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install"
