@@ -1,8 +1,23 @@
 <template>
   <div>
-    <button @click="fetchArticles">加载文章</button>
-    <button @click="createArticle">创建文章</button>
-    <button @click="getArticleById">根据ID获取文章</button>
+    <button
+      @click="fetchArticles"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      加载文章
+    </button>
+    <button
+      @click="createArticle"
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+    >
+      创建文章
+    </button>
+    <button
+      @click="getArticleById"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    >
+      根据ID获取文章
+    </button>
   </div>
   <div>
     <!-- <h1>Articles文章模块</h1> -->

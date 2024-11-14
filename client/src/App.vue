@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <div
-      class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:bg-blue-600"
+      class="p-4 bg-yellow-500 text-white font-bold rounded-lg shadow-lg hover:bg-yellow-600"
     >
       Hello Tailwind CSS!
     </div>
+    <hr />
+    <br />
     <ArticlesPage />
   </div>
 </template>
