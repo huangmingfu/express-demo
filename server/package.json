@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon app.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.21.1"
   },
   "devDependencies": {
