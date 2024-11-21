@@ -31,5 +31,17 @@ export default ({ mode }) => {
         },
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            chunkFileNames: "js/[name]-[hash].js",
+            entryFileNames: "js/[name]-[hash].js",
+            assetFileNames: "[ext]/[name]-[hash].[ext]",
+            vendor: ["vue", "vue-router", "axios"],
+          },
+        },
+      },
+    },
   });
 };

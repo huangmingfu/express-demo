@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import NProgress from "@/plugins/nprogress";
+import loadingManager from "@/plugins/loadingManager";
 import HomePage from "../pages/HomePage.vue";
 import LoginPage from "../pages/LoginPage.vue";
 import ArticlesPage from "../pages/ArticlesPage.vue";
@@ -46,11 +46,11 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  NProgress.start(); // 开始进度条
+  loadingManager.show();
   const token = localStorage.getItem("token");
 
-  // 重定向到未授权页面，并保存原目标路径
   if (to.meta.requiresAuth && !token) {
+    // 重定向到未授权页面，并保存原目标路径
     next({
       path: "/403",
       query: { redirect: to.fullPath },
@@ -63,12 +63,12 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-  NProgress.done(); // 结束进度条
+  loadingManager.hide();
 });
 
 // 路由错误处理
 router.onError(() => {
-  NProgress.done(); // 确保在路由错误时也能结束进度条
+  loadingManager.reset();
 });
 
 export default router;
