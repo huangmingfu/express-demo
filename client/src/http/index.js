@@ -24,12 +24,13 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   (response) => {
     console.log(`响应拦截器response -->`, response);
+    // 2xx 范围内的http状态码都会触发该函数。
     // 对响应数据做点什么
     return response.data;
   },
   (error) => {
     console.log(`响应拦截器error -->`, error);
-    // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+    // 超出 2xx 范围的http状态码都会触发该函数。
     // 对响应错误做点什么
     return Promise.reject(error);
   }

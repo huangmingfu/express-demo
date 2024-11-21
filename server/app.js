@@ -33,4 +33,14 @@ function startServer(port) {
     });
 }
 
+// 处理SIGINT信号
+process.on("SIGINT", () => {
+  console.log("收到 SIGINT 信号，正在关闭服务器...");
+  server.close(() => {
+    console.log("服务器已关闭");
+    // 确保进程退出
+    process.exit(0);
+  });
+});
+
 startServer(port); // 启动服务器

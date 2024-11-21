@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex items-center gap-4">
     <button
       @click="fetchArticles"
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -14,9 +14,15 @@
     </button>
     <button
       @click="getArticleById"
-      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
     >
       根据ID获取文章
+    </button>
+    <button
+      @click="getArticleByIdError"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    >
+      根据ID获取文章（失败情况）
     </button>
   </div>
   <div>
@@ -58,5 +64,9 @@ const createArticle = async () => {
 
 const getArticleById = async () => {
   await apiGetArticleById(2);
+};
+
+const getArticleByIdError = async () => {
+  await apiGetArticleById(99999);
 };
 </script>
