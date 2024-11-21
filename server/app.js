@@ -1,8 +1,12 @@
 require("dotenv").config(); // 加载.env环境变量
+const morgan = require("morgan");
 
 const express = require("express");
 const app = express();
 const articlesRoutes = require("./articlesRoutes"); // 引入文章路由模块
+
+// 使用 'combined' 预设格式记录所有请求
+app.use(morgan("combined"));
 
 app.use(express.json());
 app.use("/articles", articlesRoutes); // 使用文章路由
