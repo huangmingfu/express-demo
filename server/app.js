@@ -1,22 +1,28 @@
-require("dotenv").config(); // 加载.env环境变量
-const morgan = require("morgan");
-const cors = require("cors");
-const { verifyToken } = require("./authMiddleware");
-const authRoutes = require("./authRoutes");
-const articlesRoutes = require("./articlesRoutes"); // 引入文章路由模块
+require("dotenv").config(); // 加载.env环境变量，用于从.env文件中读取环境变量
+const morgan = require("morgan"); // 引入morgan库，用于日志记录
+const cors = require("cors"); // 引入cors库，用于处理跨源资源共享
+const { verifyToken } = require("./authMiddleware"); // 引入验证Token的中间件
+const authRoutes = require("./authRoutes"); // 引入认证相关的路由处理模块
+const articlesRoutes = require("./articlesRoutes"); // 引入文章相关的路由处理模块
 
-// 使用 'combined' 预设格式记录所有请求
-app.use(morgan("combined"));
+// 初始化中间件
+function initializeMiddlewares() {
+  app.use(morgan("combined")); // 使用 'combined' 预设格式记录所有请求
+  app.use(express.json());
+  app.use(cors());
+}
 
-app.use(express.json());
-app.use(cors());
-app.use("/auth", authRoutes);
-app.use("/articles", verifyToken, articlesRoutes); // 使用文章路由
+// 设置路由
+function setupRoutes() {
+  app.use("/auth", authRoutes);
+  app.use("/articles", verifyToken, articlesRoutes); // 使用文章路由
+}
 
-// 如果不指定端口号，服务器将无法启动
-// 生产环境：可以使用环境变量来控制端口号，这样部署时可以灵活配置。
-//如果需要使用标准端口（80 或 443），通常会在前端有一个反向代理（如 Nginx 或 Apache），它监听标准端口并将请求转发到 Node.js 应用的非标准端口。
-let port = process.env.PORT; // 初始端口号
+// 端口处理和服务器启动
+function handlePortAndStartServer() {
+  let port = process.env.PORT; // 初始端口号
+  startServer(port);
+}
 
 function startServer(port) {
   app
@@ -24,25 +30,33 @@ function startServer(port) {
       console.log(`服务器在端口 ${port} 上运行`);
     })
     .on("error", (err) => {
-      // 检查端口是否被占用
       if (err.code === "EADDRINUSE") {
         port = Number(port) + 1;
         console.log(`端口 ${port} 已被占用，尝试端口 ${port}`);
-        startServer(port); // 递归调用，尝试下一个端口，注：端口被换了的话，前端要修改VITE_SERVER_URL的端口号
+        startServer(port); // 递归调用，尝试下一个端口
       } else {
         console.error(err);
       }
     });
 }
 
-// 处理SIGINT信号
-process.on("SIGINT", () => {
-  console.log("收到 SIGINT 信号，正在关闭服务器...");
-  server.close(() => {
-    console.log("服务器已关闭");
-    // 确保进程退出
-    process.exit(0);
+// 处理SIGINT信号，优雅关闭服务器
+function setupGracefulShutdown() {
+  process.on("SIGINT", () => {
+    console.log("收到 SIGINT 信号，正在关闭服务器...");
+    server.close(() => {
+      console.log("服务器已关闭");
+      process.exit(0);
+    });
   });
-});
+}
 
-startServer(port); // 启动服务器
+// 执行初始化和启动流程
+function initializeAndStart() {
+  initializeMiddlewares();
+  setupRoutes();
+  handlePortAndStartServer();
+  setupGracefulShutdown();
+}
+
+initializeAndStart(); // 启动服务器

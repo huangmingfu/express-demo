@@ -23,5 +23,13 @@ export default ({ mode }) => {
         },
       },
     },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+          additionalData: `@import "@/styles/variables.less";`, // 全局变量文件
+        },
+      },
+    },
   });
 };

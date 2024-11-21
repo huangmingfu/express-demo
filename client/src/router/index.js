@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
+import NProgress from "@/plugins/nprogress";
+import HomePage from "../pages/HomePage.vue";
 import LoginPage from "../pages/LoginPage.vue";
 import ArticlesPage from "../pages/ArticlesPage.vue";
-import NotFoundPage from "../pages/NotFoundPage.vue";
-import UnauthorizedPage from "../pages/UnauthorizedPage.vue";
+import NotFoundPage from "@/components/NotFoundPage.vue";
+import UnauthorizedPage from "@/components/UnauthorizedPage.vue";
 
 const routes = [
   {
     path: "/",
-    redirect: "/login",
+    name: "Home",
+    component: HomePage,
+    meta: { requiresAuth: false },
   },
   {
     path: "/login",
@@ -42,10 +46,11 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
+  NProgress.start(); // 开始进度条
   const token = localStorage.getItem("token");
 
+  // 重定向到未授权页面，并保存原目标路径
   if (to.meta.requiresAuth && !token) {
-    // 重定向到未授权页面，并保存原目标路径
     next({
       path: "/403",
       query: { redirect: to.fullPath },
@@ -55,6 +60,15 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+router.afterEach(() => {
+  NProgress.done(); // 结束进度条
+});
+
+// 路由错误处理
+router.onError(() => {
+  NProgress.done(); // 确保在路由错误时也能结束进度条
 });
 
 export default router;

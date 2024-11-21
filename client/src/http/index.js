@@ -1,4 +1,5 @@
 import axios from "axios";
+import NProgress from "@/plugins/nprogress";
 
 // 创建 axios 实例
 const http = axios.create({
@@ -9,10 +10,29 @@ const http = axios.create({
   },
 });
 
+// 请求计数器
+let requestCount = 0;
+
+// 显示加载进度条
+function showProgress() {
+  if (requestCount === 0) {
+    NProgress.start();
+  }
+  requestCount++;
+}
+
+// 隐藏加载进度条
+function hideProgress() {
+  requestCount--;
+  if (requestCount === 0) {
+    NProgress.done();
+  }
+}
+
 // 请求拦截器
 http.interceptors.request.use(
   (config) => {
-    // 从 localStorage 获取 token
+    showProgress();
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -20,7 +40,7 @@ http.interceptors.request.use(
     return config;
   },
   (error) => {
-    // 对请求错误做些什么
+    hideProgress();
     return Promise.reject(error);
   }
 );
@@ -28,15 +48,11 @@ http.interceptors.request.use(
 // 响应拦截器
 http.interceptors.response.use(
   (response) => {
-    console.log(`响应拦截器response -->`, response);
-    // 2xx 范围内的http状态码都会触发该函数。
-    // 对响应数据做点什么
+    hideProgress();
     return response.data;
   },
   (error) => {
-    console.log(`响应拦截器error -->`, error);
-    // 超出 2xx 范围的http状态码都会触发该函数。
-    // 对响应错误做点什么
+    hideProgress();
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       window.location.href = "/login";
