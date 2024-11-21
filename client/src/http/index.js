@@ -2,8 +2,11 @@ import axios from "axios";
 
 // 创建 axios 实例
 const http = axios.create({
-  baseURL: "/api", // 确保这里的 baseURL 是 '/api'
-  timeout: 10000, // 请求超时时间
+  baseURL: "/api",
+  timeout: 5000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // 请求拦截器
@@ -11,7 +14,9 @@ http.interceptors.request.use(
   (config) => {
     // 从 localStorage 获取 token
     const token = localStorage.getItem("token");
-    config.headers.Authorization = `Bearer ${token}`;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -32,7 +37,11 @@ http.interceptors.response.use(
     console.log(`响应拦截器error -->`, error);
     // 超出 2xx 范围的http状态码都会触发该函数。
     // 对响应错误做点什么
-    return Promise.reject(error);
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error.response?.data || error);
   }
 );
 

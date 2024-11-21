@@ -1,8 +1,12 @@
 import http from "./index";
 
-export function apiGetArticles() {
+export const login = (data) => {
+  return http.post("/auth/login", data);
+};
+
+export const getArticles = () => {
   return http.get("/articles");
-}
+};
 
 export function apiCreateArticle(title, content) {
   return http.post("/articles/create", { title, content });

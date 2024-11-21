@@ -1,15 +1,17 @@
 require("dotenv").config(); // 加载.env环境变量
 const morgan = require("morgan");
-
-const express = require("express");
-const app = express();
+const cors = require("cors");
+const { verifyToken } = require("./authMiddleware");
+const authRoutes = require("./authRoutes");
 const articlesRoutes = require("./articlesRoutes"); // 引入文章路由模块
 
 // 使用 'combined' 预设格式记录所有请求
 app.use(morgan("combined"));
 
 app.use(express.json());
-app.use("/articles", articlesRoutes); // 使用文章路由
+app.use(cors());
+app.use("/auth", authRoutes);
+app.use("/articles", verifyToken, articlesRoutes); // 使用文章路由
 
 // 如果不指定端口号，服务器将无法启动
 // 生产环境：可以使用环境变量来控制端口号，这样部署时可以灵活配置。
