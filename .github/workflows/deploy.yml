@@ -52,18 +52,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # 使用 最新的 PNPM
-      # 你也可以指定为具体的版本
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: latest
-          # version: 9
-          run_install: false
-
         # 安装依赖
       - name: Install dependencies
-        run: npm install
+        run: npm install-all
 
         # 构建项目
       - name: Build blog project
