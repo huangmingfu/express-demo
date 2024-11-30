@@ -54,13 +54,13 @@ jobs:
 
         # 安装依赖
       - name: Install dependencies
-        run: npm run install-all
+        run: cd ./client && npm install
 
         # 构建项目
       - name: Build blog project
         run: |
           echo ${{ github.workspace }}
-          npm run build
+          cd ./client && npm run build
 
         # 资源拷贝
       - name: Build with Jekyll
