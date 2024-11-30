@@ -5,6 +5,7 @@ import LoginPage from "../pages/LoginPage.vue";
 import ArticlesPage from "../pages/ArticlesPage.vue";
 import NotFoundPage from "@/components/NotFoundPage.vue";
 import UnauthorizedPage from "@/components/UnauthorizedPage.vue";
+import RegisterPage from "../pages/RegisterPage.vue";
 
 const routes = [
   {
@@ -17,6 +18,12 @@ const routes = [
     path: "/login",
     name: "Login",
     component: LoginPage,
+    meta: { requiresAuth: false },
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: RegisterPage,
     meta: { requiresAuth: false },
   },
   {
@@ -50,6 +57,7 @@ router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("token");
 
   if (to.meta.requiresAuth && !token) {
+    loadingManager.hide();
     // 重定向到未授权页面，并保存原目标路径
     next({
       path: "/403",

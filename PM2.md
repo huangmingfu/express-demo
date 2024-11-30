@@ -18,4 +18,23 @@ PM2 是一个带有负载均衡功能的 Node.js 应用的进程管理器。它�
 - `pm2 logs`：显示所有进程的日志。
 - `pm2 monit`：监控所有进程。
 
+
+### 日志管理
+```bash
+pm2 logs                # 查看实时日志
+pm2 logs --lines 100    # 查看最近100行日志
+pm2 logs --err         # 只查看错误日志
+pm2 flush              # 清空所有日志
+```
+
+### 进程管理
+```bash
+pm2 list               # 查看进程列表
+pm2 show express-demo  # 查看应用详细信息
+pm2 delete express-demo # 删除应用
+```
+
 通过使用 PM2，开发者可以更加专注于应用的开发，而不是应用的运行和维护。
+
+# 全局安装 PM2
+npm install pm2 -g

@@ -1,9 +1,13 @@
 require("dotenv").config(); // 加载.env环境变量，用于从.env文件中读取环境变量
+const express = require("express");
 const morgan = require("morgan"); // 引入morgan库，用于日志记录
 const cors = require("cors"); // 引入cors库，用于处理跨源资源共享
+
 const { verifyToken } = require("./authMiddleware"); // 引入验证Token的中间件
 const authRoutes = require("./authRoutes"); // 引入认证相关的路由处理模块
 const articlesRoutes = require("./articlesRoutes"); // 引入文章相关的路由处理模块
+
+const app = express();
 
 // 初始化中间件
 function initializeMiddlewares() {
@@ -28,6 +32,7 @@ function startServer(port) {
   app
     .listen(port, () => {
       console.log(`服务器在端口 ${port} 上运行`);
+      console.log("当前环境为：", process.env.NODE_ENV);
     })
     .on("error", (err) => {
       if (err.code === "EADDRINUSE") {

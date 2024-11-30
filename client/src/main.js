@@ -5,6 +5,8 @@ import "@/styles/nprogress.less";
 import "./assets/tailwind.css";
 import Loading from "@/components/Loading.vue";
 import loadingManager from "@/plugins/loadingManager";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 
 const app = createApp(App);
 
@@ -21,4 +23,5 @@ const loading = createApp(Loading).mount(
 loadingManager.setLoadingInstance(loading);
 
 app.use(router);
+app.use(ElementPlus);
 app.mount("#app");

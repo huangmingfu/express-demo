@@ -4,7 +4,11 @@ export const login = (data) => {
   return http.post("/auth/login", data);
 };
 
-export const getArticles = () => {
+export const register = (data) => {
+  return http.post("/auth/register", data);
+};
+
+export const apiGetArticles = () => {
   return http.get("/articles");
 };
 

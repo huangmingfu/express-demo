@@ -25,7 +25,7 @@ router.get("/get", (req, res) => {
     sendSuccessResponse(res, "成功获取文章", article);
   } else {
     // status为http状态码：范围100到599，超过前端会报500服务端错误（Invalid status code）
-    res.status(401).json({ code: 404, message: "文章未找到" });
+    res.json({ code: 404, message: "文章未找到" });
   }
 });
 
@@ -36,9 +36,7 @@ router.post("/create", (req, res) => {
     return res.status(400).json({ code: 400, message: "标题和内容是必需的" });
   }
   const newArticle = addArticle(title, content);
-  res
-    .status(200)
-    .json({ code: 200, message: "文章添加成功", data: newArticle });
+  res.json({ code: 200, message: "文章添加成功", data: newArticle });
 });
 
 module.exports = router;

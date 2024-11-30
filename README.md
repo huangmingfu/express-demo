@@ -104,20 +104,6 @@ npm run restart    # 重启服务
 npm run monitor    # 打开监控面板
 ```
 
-### 日志管理
-```bash
-pm2 logs                # 查看实时日志
-pm2 logs --lines 100    # 查看最近100行日志
-pm2 logs --err         # 只查看错误日志
-pm2 flush              # 清空所有日志
-```
-
-### 进程管理
-```bash
-pm2 list               # 查看进程列表
-pm2 show express-demo  # 查看应用详细信息
-pm2 delete express-demo # 删除应用
-```
 
 ## 生产环境部署
 
@@ -155,14 +141,6 @@ npm run start:pro
 - 生产环境部署时建议关闭文件监听功能
 - 建议定期备份 articles.json 数据文件
 - 大规模部署时建议使用数据库替代 JSON 文件存储
-
-## 贡献指南
-
-1. Fork 本项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交改动 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交 Pull Request
 
 ## 许可证
 

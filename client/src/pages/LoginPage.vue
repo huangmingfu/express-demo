@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-box">
       <h2>登录</h2>
-      <form @submit.prevent="handleLogin">
+      <form @submit.self.prevent="handleLogin">
         <div class="form-group">
           <label for="username">用户名</label>
           <input
@@ -27,6 +27,9 @@
         <button type="submit" :disabled="loading">
           {{ loading ? "登录中..." : "登录" }}
         </button>
+        <div class="register-link">
+          <p>没有账号？<router-link to="/register">去注册</router-link></p>
+        </div>
       </form>
     </div>
   </div>
@@ -59,6 +62,7 @@ const handleLogin = async () => {
     // 跳转到文章页
     router.push("/articles");
   } catch (error) {
+    console.error(`error -->`, error);
     errorMsg.value = error.message || "登录失败，请重试";
   } finally {
     loading.value = false;
@@ -134,5 +138,19 @@ button:disabled {
   color: #f44336;
   margin-top: 0.5rem;
   font-size: 0.875rem;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-link a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
 }
 </style>

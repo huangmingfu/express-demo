@@ -13,7 +13,7 @@ async function ensureUsersFile() {
     const defaultAdmin = {
       username: "admin",
       // 密码: 123456
-      password: "$2a$10$3w3HkJFwH0T5S0h0ZB2YXu.AQS1jPqQmwqwkZHDPqfT9lV15OyR.O",
+      password: "$2a$10$Z3xNxpe3fWeWgiHp4qpaHezzl1Xml2ovN1Si8DPtj0TppZEHGAD8u",
     };
     await fs.writeFile(usersFile, JSON.stringify([defaultAdmin], null, 2));
   }
@@ -21,7 +21,7 @@ async function ensureUsersFile() {
 
 // 获取所有用户
 async function getUsers() {
-  await ensureUsersFile();
+  // await ensureUsersFile();
   const data = await fs.readFile(usersFile, "utf8");
   return JSON.parse(data);
 }
@@ -41,7 +41,28 @@ async function validateUser(username, password) {
   return isValid ? user : null;
 }
 
+// 注册用户
+async function registerUser(username, password) {
+  const users = await getUsers();
+  const existingUser = users.find((user) => user.username === username);
+
+  if (existingUser) {
+    throw new Error("用户已存在");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = {
+    username,
+    password: hashedPassword,
+  };
+
+  users.push(newUser);
+  await fs.writeFile(usersFile, JSON.stringify(users, null, 2));
+  return newUser;
+}
+
 module.exports = {
   findUser,
   validateUser,
+  registerUser,
 };
