@@ -24,9 +24,14 @@
     >
       根据ID获取文章（失败情况）
     </button>
+    <button
+      @click="logout"
+      class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+    >
+      退出登录
+    </button>
   </div>
   <div>
-    <!-- <h1>Articles文章模块</h1> -->
     <ul>
       <li v-for="article in articles" :key="article.id">
         {{ article.title }}
@@ -37,12 +42,14 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import {
   apiGetArticles,
   apiCreateArticle,
   apiGetArticleById,
 } from "@/http/api";
 
+const router = useRouter();
 const articles = ref([]);
 
 const fetchArticles = async () => {
@@ -68,5 +75,11 @@ const getArticleById = async () => {
 
 const getArticleByIdError = async () => {
   await apiGetArticleById(99999);
+};
+
+// 退出登录
+const logout = () => {
+  localStorage.removeItem("token"); // 清除 token
+  router.push("/");
 };
 </script>

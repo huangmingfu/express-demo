@@ -8,6 +8,7 @@ export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return defineConfig({
+    base: "./",
     plugins: [vue()],
     resolve: {
       alias: {
@@ -32,12 +33,14 @@ export default ({ mode }) => {
       },
     },
     build: {
+      target: "es2015",
+      chunkSizeWarningLimit: 2000,
       rollupOptions: {
         output: {
+          chunkFileNames: "js/[name]-[hash].js", // chunk包输出的文件夹名称
+          entryFileNames: "js/[name]-[hash].js", // 入口文件输出的文件夹名称
+          assetFileNames: "[ext]/[name]-[hash].[ext]", // 静态文件输出的文件夹名称
           manualChunks: {
-            chunkFileNames: "js/[name]-[hash].js",
-            entryFileNames: "js/[name]-[hash].js",
-            assetFileNames: "[ext]/[name]-[hash].[ext]",
             vendor: ["vue", "vue-router", "axios"],
           },
         },

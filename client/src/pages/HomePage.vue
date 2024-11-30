@@ -11,12 +11,14 @@
           <h3>🚀 前后端分离</h3>
           <p>基于 Vue3 + Express 的现代化架构</p>
         </div>
-        <router-link to="/articles">
-          <div class="feature-card">
-            <h3>📝 文章管理</h3>
-            <p>支持文章的增删改查操作</p>
-          </div>
-        </router-link>
+        <div
+          class="feature-card"
+          @click="$router.push('/articles')"
+          style="cursor: pointer"
+        >
+          <h3>📝 文章管理</h3>
+          <p>支持文章的增删改查操作</p>
+        </div>
         <div class="feature-card">
           <h3>🛡 用户认证</h3>
           <p>JWT token 认证机制</p>
