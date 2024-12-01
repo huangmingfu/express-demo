@@ -55,7 +55,7 @@ jobs:
 
       # 安装依赖
       - name: Install dependencies
-        run: npm run install-all
+        run: cd ./client && npm install
  
       # 构建项目
       - name: Build blog project
