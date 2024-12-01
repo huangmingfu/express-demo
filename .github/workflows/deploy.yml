@@ -34,9 +34,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # node v20 运行
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [20]
 
     steps:
       # 拉取代码
@@ -63,13 +64,13 @@ jobs:
 
         # 安装依赖
       - name: Install dependencies
-        run: npm run install-all
+        run: pnpm install --frozen-lockfile
 
         # 构建项目
       - name: Build blog project
         run: |
           echo ${{ github.workspace }}
-          npm run build
+          pnpm run build
 
         # 资源拷贝
       - name: Build with Jekyll
