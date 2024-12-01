@@ -7,7 +7,8 @@
     "start": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
     "build": "cd client && npm run build",
     "push": "git add . && git commit -m \"update\" && git push",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "clean": "rm -rf node_modules && rm -rf client/node_modules && rm -rf server/node_modules"
   },
   "keywords": [],
   "author": "",
