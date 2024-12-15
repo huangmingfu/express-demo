@@ -76,6 +76,8 @@ npm install pm2 -g
 在 server 目录下创建 .env 文件：
 ```env
 PORT=3000
+NODE_ENV=production
+JWT_SECRET=your-super-secret-key-change-this-in-production
 ```
 
 ### 3. 开发模式
