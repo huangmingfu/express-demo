@@ -3,9 +3,9 @@ const express = require("express");
 const morgan = require("morgan"); // 引入morgan库，用于日志记录
 const cors = require("cors"); // 引入cors库，用于处理跨源资源共享
 
-const { verifyToken } = require("./authMiddleware"); // 引入验证Token的中间件
-const authRoutes = require("./authRoutes"); // 引入认证相关的路由处理模块
-const articlesRoutes = require("./articlesRoutes"); // 引入文章相关的路由处理模块
+const { verifyToken } = require("./middlewares/authMiddleware"); // 引入验证Token的中间件
+const authRoutes = require("./routes/authRoutes"); // 引入认证相关的路由处理模块
+const articlesRoutes = require("./routes/articlesRoutes"); // 引入文章相关的路由处理模块
 
 const app = express();
 

@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 // 定义存储数据的文件路径
-const DATA_FILE = path.join(__dirname, "articles.json");
+const DATA_FILE = path.join(__dirname, "../database/articles.json");
 
 // 从文件中读取文章数据
 function loadArticles() {

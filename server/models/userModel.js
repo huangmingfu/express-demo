@@ -2,7 +2,7 @@ const fs = require("fs").promises;
 const path = require("path");
 const bcrypt = require("bcryptjs");
 
-const usersFile = path.join(__dirname, "users.json");
+const usersFile = path.join(__dirname, "../database/users.json");
 
 // 获取所有用户
 async function getUsers() {

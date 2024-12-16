@@ -3,7 +3,7 @@ const {
   getAllArticles,
   getArticleById,
   addArticle,
-} = require("./articlesModel");
+} = require("../models/articlesModel");
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.get("/get", (req, res) => {
   if (article) {
     sendSuccessResponse(res, "成功获取文章", article);
   } else {
-    // status为http状态码：范围100到599，超过前端会报500服务端错误（Invalid status code）
+    // 设置http状态码：范围100到599，超过前端会报500服务端错误（Invalid status code）
     res.json({ code: 404, message: "文章未找到" });
   }
 });
