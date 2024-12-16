@@ -4,24 +4,8 @@ const bcrypt = require("bcryptjs");
 
 const usersFile = path.join(__dirname, "users.json");
 
-// 确保用户文件存在
-async function ensureUsersFile() {
-  try {
-    await fs.access(usersFile);
-  } catch {
-    // 创建默认管理员账户
-    const defaultAdmin = {
-      username: "admin",
-      // 密码: 123456
-      password: "$2a$10$Z3xNxpe3fWeWgiHp4qpaHezzl1Xml2ovN1Si8DPtj0TppZEHGAD8u",
-    };
-    await fs.writeFile(usersFile, JSON.stringify([defaultAdmin], null, 2));
-  }
-}
-
 // 获取所有用户
 async function getUsers() {
-  // await ensureUsersFile();
   const data = await fs.readFile(usersFile, "utf8");
   return JSON.parse(data);
 }
