@@ -3,6 +3,7 @@
 这是一个使用 Express.js 构建的演示项目，实现了前后端分离架构的文章管理系统。
 
 [express 5](https://expressjs.com/en/guide/migrating-5.html)
+[express 入门教程](https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/Introduction)
 
 ## 特性
 
