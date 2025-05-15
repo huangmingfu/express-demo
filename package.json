@@ -1,19 +1,17 @@
 {
-  "name": "my-app",
+  "name": "my-express-demo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "express 练习项目",
   "scripts": {
-    "start": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
-    "build": "cd client && npm run build",
-    "push": "git add . && git commit -m \"update\" && git push",
-    "install-all": "pnpm install && cd server && pnpm install && cd ../client && pnpm install",
-    "clean": "rm -rf node_modules && rm -rf client/node_modules && rm -rf server/node_modules"
+    "start": "pnpm -r run dev",
+    "build": "pnpm -C client run build",
+    "preinstall": "npx only-allow pnpm"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^9.1.0"
-  }
+  "keywords": [
+    "express",
+    "vite",
+    "vue"
+  ],
+  "author": "huangmingfu",
+  "license": "MIT"
 }

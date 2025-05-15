@@ -1,0 +1,4 @@
+packages:
+  - 'other-demo/**'
+  - 'client'
+  - 'server'
