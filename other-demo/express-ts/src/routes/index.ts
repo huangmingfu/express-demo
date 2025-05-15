@@ -14,9 +14,9 @@ router.get('/list', (req: Request, res: Response) => {
 // 代理服务器转发，解决跨域
 router.get('/a', async (req: Request, res: Response) => {
   try {
-    const { level } = req.query;
-    const url = `https://xxxxxx/address-xxxx/xxxx-address-tree?level=${level}`;
-    const response = await axios.get(url, {
+    const { id, level } = req.query;
+    const url = `https://xxxxxx/address-xxxx/xxxx-address-tree?id=${id}level=${level}`; 
+    const response = await axios.get(url, { // 会把id = undefined传过去；url.replaceAll('undefined','') 可以清除一下
       headers: {
         'Content-Type': 'application/json'
       }
